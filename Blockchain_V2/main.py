@@ -1,4 +1,8 @@
-from coin import Block
+from coin import Block,BlockChain
 
-GenesisBlock = Block(1,50,"9/11/2020")
-GenesisBlock.hash_details()
+one = BlockChain()
+one.AddBlock(Block(1,"9/12/2020",100))
+one.AddBlock(Block(2,"10/12/2020",200))
+
+for block in one.chain:
+    print(block)

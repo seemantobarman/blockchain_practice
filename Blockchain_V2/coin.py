@@ -14,7 +14,30 @@ class Block:
         hash_calculation = hashlib.sha256(block_details).hexdigest()
         return hash_calculation
 
-    def hash_details(self):
-        print("Previous Hash: " +self.previous_hash)
-        print("Current Hash: " +self.hash)
-    
+    def __str__(self):
+        string = "nonce: "+str(self.nonce) +"\n"
+        string += "transaction: "+str(self.transaction) +"\n"
+        string += "timestamp: "+str(self.timestamp) +"\n"
+        string += "previous hash: "+str(self.previous_hash) +"\n"
+        string += "hash: "+str(self.hash) +"\n"
+
+        return string
+
+
+class BlockChain:
+    def __init__(self):
+        self.chain=[self.GenesisBlock(),]
+
+    def GenesisBlock(self):
+        genesis = Block(0,"First block of the chain","9/11/2020")
+        return genesis
+
+    def LastBlock(self):
+        return self.chain[-1]
+
+    def AddBlock(self,newBlock):
+        newBlock.previous_hash = self.LastBlock().hash
+        newBlock.hash = newBlock.calculate_hash()
+        self.chain.append(newBlock)
+
+
